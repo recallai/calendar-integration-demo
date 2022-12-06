@@ -1,0 +1,19 @@
+name = "recall-cal-proxy"
+main = "src/index.ts"
+compatibility_date = "2022-05-30"
+
+[vars]
+RECALL_API_HOST = "https://api.recall.ai/api/v1"
+
+# Override values for `--env production` usage
+[env.production.vars]
+RECALL_API_HOST = "https://api.recall.ai/api/v1"
+
+# [secrets]
+# RECALL_API_KEY
+
+[env.staging]
+workers_dev = true
+
+[env.staging.vars]
+RECALL_API_HOST = "https://staging.recall.ai/api/v1"
