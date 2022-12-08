@@ -5,7 +5,7 @@ import useLocalUser from "./hooks/useLocalUser";
 
 export default function HomeContainer() {
   const localUser = useLocalUser();
-  const authUrl = process.env.REACT_APP_AUTH_URL
+  const authUrl = process.env.REACT_APP_AUTH_URL || ''
   
   return (
     <div className="flex flex-col items-center h-screen pt-6 pb-12 overflow-y-auto bg-gray-100 lg:pt-20">
@@ -25,8 +25,8 @@ export default function HomeContainer() {
           <RecallCalendar
             userId={localUser.id}
             authUrl={authUrl}
-            googleOAuthClientId=""
-            msOAuthClientId={process.env.REACT_APP_MICROSOFT_OAUTH_CLIENT_ID || "99243aca-8e61-43c1-ba8c-a32fe20eeb1b"}
+            googleOAuthClientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID || ""}
+            msOAuthClientId={process.env.REACT_APP_MICROSOFT_OAUTH_CLIENT_ID || ""}
           />
         ) : null}
       </div>
