@@ -75,7 +75,7 @@ export default function ConnectCalendar({
               className="flex mx-auto px-5 py-1.5 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-full shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               onClick={() => {
                 setConnectingMessage("Connecting google calendar.");
-                recallCalendar.connectGoogleCalendar();
+                recallCalendar.connectCalendar(CalendarPlatform.GOOGLE);
               }}
             >
               Connect

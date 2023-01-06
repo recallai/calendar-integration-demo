@@ -38,7 +38,6 @@ export type UseRecallCalendarState = {
   meetings: MeetingsState;
   initializeComplete: boolean;
   initializeError: string | null;
-  connectGoogleCalendar: () => void;
   connectCalendar: (platform: CalendarPlatform) => void;
   refreshCalendar: () => void;
   updateMeeting: (meetingId: string, overrideShouldRecord: boolean) => void;
@@ -122,7 +121,7 @@ export default function useRecallCalendar(
         userDispatch,
         preferences,
       }).then(() => {
-        refreshMeetings({
+        fetchMeetings({
           meetingsDispatch,
           authToken: token.data,
         });
@@ -181,44 +180,7 @@ export default function useRecallCalendar(
           )[0]?.connected
         ) {
           clearInterval(intervalId);
-          refreshMeetings({
-            meetingsDispatch,
-            authToken: token.data,
-          });
-        }
-      }, 2000);
-    },
-
-    connectGoogleCalendar: (args?: { open?: (url: string) => void }) => {
-      const redirectUri = buildUrl("google_oauth_callback/");
-      const oAuthUrl = buildGoogleOAuthUrl({
-        state: {
-          recall_calendar_auth_token: token.data,
-          google_oauth_redirect_url: redirectUri,
-        },
-        redirectUri,
-        clientId: googleOAuthClientId,
-      });
-
-      if (args && typeof args.open === "function") {
-        args.open(oAuthUrl);
-      } else {
-        window.open(oAuthUrl);
-      }
-
-      const intervalId = setInterval(async () => {
-        const user = await fetchUser({
-          authToken: token.data,
-          userDispatch,
-        });
-
-        if (
-          user?.connections.filter(
-            (c) => c.platform === CalendarPlatform.GOOGLE
-          )[0]?.connected
-        ) {
-          clearInterval(intervalId);
-          refreshMeetings({
+          fetchMeetings({
             meetingsDispatch,
             authToken: token.data,
           });
