@@ -1,0 +1,37 @@
+version: '3.1'
+services:
+  app:
+    platform: linux/amd64
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3003:3003"
+    command: npm run dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379
+  
+  worker:
+    platform: linux/amd64
+    build: 
+      context: .
+      dockerfile: Dockerfile    
+    command: npm run dev:worker
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis://redis:6379
+    
+  redis:
+    platform: linux/amd64
+    image: redis:6.2    
+    expose:
+      - 6379
