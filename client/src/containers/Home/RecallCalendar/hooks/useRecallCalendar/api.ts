@@ -3,7 +3,6 @@ const RECALL_CALENDAR_API_NAMESPACE = "api/v1/calendar";
 const GOOGLE_OAUTH_PERMISSION_SCOPES = [
   "https://www.googleapis.com/auth/calendar.events.readonly",
   "https://www.googleapis.com/auth/userinfo.email",
-  // "https://www.googleapis.com/auth/userinfo.profile",
 ];
 const MS_OAUTH_PERMISSION_SCOPES = [
   "offline_access",
