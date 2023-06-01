@@ -13,11 +13,12 @@ export default async (req, res) => {
         calendar.getCalendarEvents(),
       ]);
 
-      return res.render("calendar.ejs", {
+      return res.render("calendar.ejs", {        
         calendar,
         webhooks,
         events: events.sort((a, b) => a.startTime - b.startTime),
         notice: req.notice,
+        user: req.authentication.user,
       });
     } else {
       return res.render("404.ejs", {

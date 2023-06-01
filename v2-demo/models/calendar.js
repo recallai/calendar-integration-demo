@@ -1,4 +1,8 @@
 import { DataTypes } from "sequelize";
+import {
+  buildGoogleCalendarOAuthUrl,
+  buildMicrosoftOutlookOAuthUrl,
+} from "../logic/oauth.js";
 
 export default (sequelize) => {
   return sequelize.define(
@@ -26,7 +30,7 @@ export default (sequelize) => {
       email: {
         type: DataTypes.VIRTUAL,
         get() {
-          return this.recallData["email"];
+          return this.recallData["platform_email"];
         },
         set(value) {
           throw new Error("NOT_ALLOWED");
@@ -41,6 +45,16 @@ export default (sequelize) => {
           throw new Error("NOT_ALLOWED");
         },
       },
+      connectUrl: {
+        type: DataTypes.VIRTUAL,
+        get() {
+          const state = { userId: this.userId, calendarId: this.id }
+          return this.platform === "google_calendar" ? buildGoogleCalendarOAuthUrl(state) : buildMicrosoftOutlookOAuthUrl(state);
+        },
+        set(value) {
+          throw new Error("NOT_ALLOWED");
+        },
+      }
     },
     {
       sequelize,

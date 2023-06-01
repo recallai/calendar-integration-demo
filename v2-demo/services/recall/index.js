@@ -15,20 +15,20 @@ export default {
   },
   getCalendar: async (id) => {
     return await client.request({
-      path: `/api/v2/calendars/${id}`,
+      path: `/api/v2/calendars/${id}/`,
       method: "GET",
     });
   },
   updateCalendar: async ({ id, data }) => {
     return await client.request({
-      path: `/api/v2/calendars/${id}`,
-      method: "PUT",
+      path: `/api/v2/calendars/${id}/`,
+      method: "PATCH",
       data,
     });
   },
   deleteCalendar: async (id) => {
     return await client.request({
-      path: `/api/v2/calendars/${id}`,
+      path: `/api/v2/calendars/${id}/`,
       method: "DELETE",
     });
   },

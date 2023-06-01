@@ -38,3 +38,5 @@ export default async (job) => {
     `INFO: Synced (upsert: ${eventsUpserted.length}, delete: ${eventsDeleted.length}) calendar events for calendar(${calendarId})`
   );
 };
+
+

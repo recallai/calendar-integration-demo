@@ -36,10 +36,14 @@ const umzug = new Umzug({
   logger: undefined,
 });
 
-export async function prepareDb() {
+export async function connect() {
   await sequelize.authenticate();
+  console.log("INFO: Database connection established.");
+}
+
+export async function migrate() {
   await umzug.up();
-  console.log("Connection has been established successfully.");
+  console.log("INFO: Database migrations synced.");
 }
 
 db.sequelize = sequelize;

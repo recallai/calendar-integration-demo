@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import consoleStamp from "console-stamp";
-import { prepareDb } from "../db.js";
+import { connect as connectDb } from "../db.js";
 import { backgroundQueue } from "../queue.js";
 import Recall from "../services/recall/index.js";
 
@@ -12,7 +12,7 @@ dotenv.config();
 consoleStamp(console);
 
 // setup db & recall service
-await prepareDb();
+await connectDb();
 Recall.initialize();
 
 backgroundQueue.process("calendarwebhooks.save", 2, calendarWebhooksSave);

@@ -57,8 +57,7 @@ export default async (req, res) => {
       // and update the calendar in our database
       recallCalendar = await Recall.updateCalendar({
         id: localCalendar.recallId,
-        data: {
-          platform: "google_calendar",
+        data: {          
           oauth_refresh_token: oauthTokens.refresh_token,
           oauth_client_id: process.env.GOOGLE_CALENDAR_OAUTH_CLIENT_ID,
           oauth_client_secret: process.env.GOOGLE_CALENDAR_OAUTH_CLIENT_SECRET,

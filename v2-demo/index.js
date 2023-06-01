@@ -7,7 +7,7 @@ import "express-async-errors";
 import errorHandler from "errorhandler";
 import cookieParser from "cookie-parser";
 
-import { prepareDb } from "./db.js";
+import { connect as connectDb, migrate as migrateDb } from "./db.js";
 import router from "./routes/index.js";
 import authenticate from "./middlewares/authenticate.js";
 import notice from "./middlewares/notice.js";
@@ -21,7 +21,8 @@ dotenv.config();
 consoleStamp(console);
 
 // setup db & recall service
-await prepareDb();
+await connectDb();
+await migrateDb();
 Recall.initialize();
 
 // setup express app
