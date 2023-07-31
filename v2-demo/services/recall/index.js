@@ -1,4 +1,4 @@
-import { getClient } from "./api_client.js";
+import { getClient } from "./api-client.js";
 
 let client = null;
 export default {
@@ -53,10 +53,28 @@ export default {
       if (next.indexOf("https:") === -1 && pageUrl.indexOf("https:") !== -1) {
         next = next.replace("http:", "https:");
       }
+      
       pageUrl = next;
     }
     return events;
   },
+  
+  addBotToCalendarEvent: async ({ id, deduplicationKey, botConfig }) => {
+    return await client.request({
+      path: `/api/v2/calendar-events/${id}/bot/`,
+      method: "POST",
+      data: {
+        deduplication_key: deduplicationKey,
+        bot_config: botConfig,
+      },
+    });
+  },
+  removeBotFromCalendarEvent: async ({ id }) => {
+    return await client.request({
+      path: `/api/v2/calendar-events/${id}/bot/`,
+      method: "DELETE",
+    });
+  }
 };
 
 // export async function createCalendar(data) {

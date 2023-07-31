@@ -8,6 +8,8 @@ import signUpGet from "./sign-up/get.js";
 import signUpPost from "./sign-up/post.js";
 import calendarGet from "./calendar/get.js";
 import calendarDelete from "./calendar/delete.js";
+import calendarUpdate from "./calendar/update.js";
+import calendarEventSetManualRecord from "./calendar-event/set-manual-record.js";
 import oauthCallbackGoogleCalendar from "./oauth-callback/google-calendar.js";
 import oauthCallbackMicrosoftOutlook from "./oauth-callback/microsoft-outlook.js";
 import webhooksRecallCalendarUpdates from "./webhooks/recall-calendar-updates.js";
@@ -23,7 +25,10 @@ router.get("/sign-up", signUpGet);
 router.post("/sign-up", signUpPost);
 
 router.get("/calendar/:id", calendarGet);
+router.patch("/calendar/:id", calendarUpdate);
 router.delete("/calendar/:id", calendarDelete);
+
+router.patch("/calendar-event/:id/set-manual-record", calendarEventSetManualRecord);
 
 router.get("/oauth-callback/google-calendar", oauthCallbackGoogleCalendar);
 router.get("/oauth-callback/microsoft-outlook", oauthCallbackMicrosoftOutlook);

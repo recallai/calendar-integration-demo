@@ -26,6 +26,16 @@ export default (sequelize) => {
         type: DataTypes.JSON,
         allowNull: false,
       },
+      autoRecordExternalEvents: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      autoRecordOnlyConfirmedEvents: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
 
       email: {
         type: DataTypes.VIRTUAL,

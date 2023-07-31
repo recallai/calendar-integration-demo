@@ -36,14 +36,14 @@ class RecallApi {
     if (res.status > 299) {
       const body = await res.text();
       const err = new Error(
-        `${method} request failed with status ${res.status}, response body: \n\n${body}`
+        `${method} request failed with status ${res.status}, response body: \n\n${res.status < 500 ? body : res.status}`
       );
       err.res = res;
       throw err;
     }
 
-    if (method === "DELETE") {
-      return;
+    if (res.body === null) {
+      return
     } else {
       return await res.json();
     }

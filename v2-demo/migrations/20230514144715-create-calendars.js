@@ -42,6 +42,17 @@ export const up = async ({ context: { queryInterface } }) => {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     },
+
+    autoRecordExternalEvents: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    autoRecordOnlyConfirmedEvents: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
   });
 
   await queryInterface.addConstraint("calendars", {

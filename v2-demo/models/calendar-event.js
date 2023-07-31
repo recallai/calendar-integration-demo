@@ -22,6 +22,16 @@ export default (sequelize) => {
         type: DataTypes.JSON,
         allowNull: false,
       },
+      shouldRecordAutomatic: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      shouldRecordManual: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: null,
+      },
 
       startTime: {
         type: DataTypes.VIRTUAL,
@@ -56,6 +66,15 @@ export default (sequelize) => {
         type: DataTypes.VIRTUAL,
         get() {
           return this.recallData["meeting_url"];
+        },
+        set() {
+          throw new Error("NOT_ALLOWED");
+        },
+      },
+      bots: {
+        type: DataTypes.VIRTUAL,
+        get() {
+          return this.recallData["bots"] || [];
         },
         set() {
           throw new Error("NOT_ALLOWED");

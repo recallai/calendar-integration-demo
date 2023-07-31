@@ -1,5 +1,6 @@
 import Recall from "../../services/recall/index.js";
 import db from "../../db.js";
+import { backgroundQueue } from "../../queue.js";
 
 export default async (job) => {
   const { calendarId, recallId, lastUpdatedTimestamp } = job.data;
@@ -23,7 +24,7 @@ export default async (job) => {
       });
       eventsDeleted.push(event);
     } else {
-      const [instance, created] = await db.CalendarEvent.upsert({
+      const [instance, _created] = await db.CalendarEvent.upsert({
         recallId: event.id,
         recallData: event,
         platform: event.platform,
@@ -37,6 +38,17 @@ export default async (job) => {
   console.log(
     `INFO: Synced (upsert: ${eventsUpserted.length}, delete: ${eventsDeleted.length}) calendar events for calendar(${calendarId})`
   );
+
+  // update auto record status of the latest synced events
+  backgroundQueue.add("calendarevents.update_autorecord", {
+    calendarId,
+    recallEventIds: eventsUpserted.map((event) => event.id),
+  });
+
+  // delete bots for deleted events
+  for (const event of eventsDeleted) {
+    backgroundQueue.add("calendarevent.delete_bot", {
+      recallEventId: event.id,
+    });
+  }
 };
-
-

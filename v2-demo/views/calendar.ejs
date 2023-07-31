@@ -12,9 +12,9 @@
               events: events }) -%>
             </li>
             <li class="col-span-1 space-y-6">
-              <%- include('partials/calendar-detail-card', { calendar: calendar
-              }) -%> <%- include('partials/calendar-webhooks-card', { calendar:
-              calendar, webhooks: webhooks }) -%>
+              <%- include('partials/calendar-detail-card', { calendar: calendar }) -%>
+              <%- include('partials/calendar-recording-preferences-card', { calendar: calendar }) -%>
+              <%- include('partials/calendar-webhooks-card', { calendar: calendar, webhooks: webhooks }) -%>
             </li>
           </ul>
         </div>

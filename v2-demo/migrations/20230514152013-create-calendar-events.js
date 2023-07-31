@@ -22,6 +22,16 @@ export const up = async ({ context: { queryInterface } }) => {
       type: Sequelize.JSON,
       allowNull: false,
     },
+    shouldRecordAutomatic: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    shouldRecordManual: {
+      type: Sequelize.BOOLEAN,
+      allowNull: true,
+      defaultValue: null,
+    },
     createdAt: {
       type: Sequelize.DATE,
       allowNull: false,

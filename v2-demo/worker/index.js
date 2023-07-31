@@ -5,6 +5,9 @@ import { backgroundQueue } from "../queue.js";
 import Recall from "../services/recall/index.js";
 
 import calendarWebhooksSave from "./processors/calendar-webhooks-save.js";
+import calendarEventsUpdateAutorecord from "./processors/calendar-events-update-autorecord.js";
+import calendarEventUpdateBotSchedule from "./processors/calendar-event-update-bot-schedule.js";
+import calendarEventDeleteBot from './processors/calendar-event-delete-bot.js';
 import recallCalendarUpdate from "./processors/recall-calendar-update.js";
 import recallCalendarSyncEvents from "./processors/recall-calendar-sync-events.js";
 
@@ -15,7 +18,19 @@ consoleStamp(console);
 await connectDb();
 Recall.initialize();
 
+
 backgroundQueue.process("calendarwebhooks.save", 2, calendarWebhooksSave);
+backgroundQueue.process(
+  "calendarevents.update_autorecord",
+  2,
+  calendarEventsUpdateAutorecord
+);
+backgroundQueue.process(
+  "calendarevent.update_bot_schedule",
+  2,
+  calendarEventUpdateBotSchedule
+);
+backgroundQueue.process("calendarevent.delete_bot", 2, calendarEventDeleteBot);
 backgroundQueue.process("recall.calendar.update", 2, recallCalendarUpdate);
 backgroundQueue.process(
   "recall.calendar.sync_events",

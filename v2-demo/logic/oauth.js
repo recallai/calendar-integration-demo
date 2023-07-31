@@ -24,7 +24,7 @@ export function buildMicrosoftOutlookOAuthUrl(state) {
     redirect_uri: process.env.PUBLIC_URL + "/oauth-callback/microsoft-outlook",
     response_type: "code",
     scope: "offline_access openid email https://graph.microsoft.com/Calendars.Read",
-    prompt: "consent",
+    // prompt: "consent",
     state: JSON.stringify(state),
   };
 
