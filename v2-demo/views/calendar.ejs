@@ -1,0 +1,25 @@
+<%- include('partials/header') -%>
+<div class="min-h-full">
+  <%- include('partials/navigation') -%> <%- include('partials/notice', {
+  notice: notice }) -%>
+  <div class="py-10">
+    <main>
+      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="flex flex-col space-y-6">
+          <ul role="list" class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+            <li class="col-span-1 space-y-6">
+              <%- include('partials/calendar-events-card', { calendar: calendar,
+              events: events }) -%>
+            </li>
+            <li class="col-span-1 space-y-6">
+              <%- include('partials/calendar-detail-card', { calendar: calendar }) -%>
+              <%- include('partials/calendar-recording-preferences-card', { calendar: calendar }) -%>
+              <%- include('partials/calendar-webhooks-card', { calendar: calendar, webhooks: webhooks }) -%>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<%- include('partials/footer') -%>

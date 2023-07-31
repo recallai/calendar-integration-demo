@@ -1,0 +1,27 @@
+<div class="bg-white rounded-md shadow divide-y divide-gray-100">
+  <div
+    class="flex flex-wrap items-center justify-between sm:flex-nowrap px-4 py-5 sm:px-6"
+  >
+    <div class="flex items-center">
+      <h3 class="text-base font-semibold leading-6 text-gray-900">Webhooks</h3>
+    </div>
+  </div>
+  <ul role="list" class="divide-y divide-gray-100">
+    <% webhooks.forEach(function(webhook){ %>
+    <li class="flex flex-col items-stretch gap-x-6 px-4 py-5 sm:px-6">
+      <div class="flex items-center justify-between gap-x-3">
+        <p class="text-sm font-semibold leading-6 text-gray-900">
+          "<%= webhook.event %>"
+        </p>
+        <p class="text-xxs text-gray-500">
+          Received at <%- include('formatted-datetime', {time:
+          webhook.receivedAt}); %>
+        </p>
+      </div>
+      <pre
+        class="mt-1 sm:mt-2 text-gray-900 text-xxs"
+      ><code class="language-json"><%= JSON.stringify(webhook.payload, null, 2) %></code></pre>
+    </li>
+    <% }); %>
+  </ul>
+</div>

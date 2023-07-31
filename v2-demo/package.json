@@ -1,0 +1,48 @@
+{
+  "name": "recall-calendar-v2-apis-demo",
+  "version": "1.0.0",
+  "description": "This application demonstrates how a Recall API consumer can integrate with the V2 Calendar APIs which are designed to be server side friendly.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_ENV=production node index.js",
+    "dev": "NODE_ENV=development nodemon index.js",
+    "dev:worker": "NODE_ENV=development nodemon worker/index.js"
+  },
+  "author": "Dhruv Parmar",
+  "license": "ISC",
+  "dependencies": {
+    "bull": "^4.10.4",
+    "console-stamp": "^3.1.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "errorhandler": "^1.5.1",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "express-authentication": "^0.3.2",
+    "jsonwebtoken": "^9.0.0",
+    "node-fetch": "^3.3.1",
+    "sequelize": "^6.31.1",
+    "sqlite": "^4.1.2",
+    "sqlite3": "^5.1.6",
+    "umzug": "^3.2.1",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "sequelize-cli": "^6.6.0"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      ".git",
+      "node_modules/**/node_modules"
+    ],
+    "delay": "2500",
+    "env": {
+      "NODE_ENV": "development"
+    },
+    "ext": "js,ejs,sql"
+  }
+}

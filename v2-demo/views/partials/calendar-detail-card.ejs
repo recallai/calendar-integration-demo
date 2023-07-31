@@ -1,0 +1,58 @@
+<div class="overflow-hidden bg-white shadow sm:rounded-lg py-4 px-0 sm:px-4">
+  <div class="px-4 sm:px-0">
+    <div class="flex items-center">
+      <% if (calendar.platform === 'google_calendar') { %>
+      <img
+        class="h-6 w-6 mr-4 flex-none rounded-full bg-gray-50"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Calendar_icon_%282020%29.svg/2048px-Google_Calendar_icon_%282020%29.svg.png"
+        alt=""
+      />
+      <% } else { %>
+      <img
+        class="h-6 w-6 mr-4 flex-none rounded-full bg-gray-50"
+        src="https://img.icons8.com/color/480/outlook-calendar.png"
+        alt=""
+      />
+      <% } %>
+      <h1 class="text-lg font-semibold leading-7 text-gray-900">
+        <%= calendar.email %>
+      </h1>
+    </div>
+  </div>
+  <div class="mt-4">
+    <dl class="grid grid-cols-1 sm:grid-cols-2">
+      <div class="border-t border-gray-100 px-4 py-4 sm:col-span-1 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-gray-900">Recall ID</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
+          <%= calendar.recallId %>
+        </dd>
+      </div>
+      <div class="border-t border-gray-100 px-4 py-4 sm:col-span-1 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-gray-900">Local ID</dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
+          <%= calendar.id %>
+        </dd>
+      </div>
+      <div class="border-t border-gray-100 px-4 py-4 sm:col-span-1 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-gray-900">Status</dt>
+        <dd class="flex mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
+          <%- include('calendar-status-badge', {status: calendar.status}); %>
+        </dd>
+      </div>
+      <div class="border-t border-gray-100 px-4 py-4 sm:col-span-1 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-gray-900">
+          Last updated
+        </dt>
+        <dd class="mt-1 text-sm leading-6 text-gray-700 sm:mt-2">
+          <%- include('formatted-datetime', {time: calendar.updatedAt}); %>
+        </dd>
+      </div>
+      <div class="border-t border-gray-100 px-4 py-4 sm:col-span-2 sm:px-0">
+        <dt class="text-sm font-medium leading-6 text-gray-900">Recall Data</dt>
+        <pre
+          class="mt-1 sm:mt-2 text-gray-900 text-xs"
+        ><code class="language-json"><%= JSON.stringify(calendar.recallData, null, 2) %></code></pre>
+      </div>
+    </dl>
+  </div>
+</div>
