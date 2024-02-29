@@ -42,6 +42,7 @@ app.post("/", (req, res) => {
       console.log(
         `ERROR: Failed to authenticate calendar v1 request due to ${error}`
       );
+      return res.status(500).json({ error: "Failed to authenticate" });
     });
 });
 
