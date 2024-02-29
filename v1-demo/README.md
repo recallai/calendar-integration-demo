@@ -6,6 +6,5 @@ A create react app serving as UI for calendar integration. Demo at https://recal
 2. Create `.env` file from `.env.sample` and update values.
 3. `npm start`
 
-## Worker
-A cloudflare worker to emulate server side authentication required for recall's calendar integration.
-Check more on setup here https://developers.cloudflare.com/workers/
+## Server
+Local http server for generating authentication tokens for using Calendar V1 APIs.
