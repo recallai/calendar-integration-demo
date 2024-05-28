@@ -3,10 +3,7 @@ export function buildGoogleCalendarOAuthUrl(state) {
     client_id: process.env.GOOGLE_CALENDAR_OAUTH_CLIENT_ID,
     redirect_uri: process.env.PUBLIC_URL + "/oauth-callback/google-calendar",
     response_type: "code",
-    scope: [
-      "https://www.googleapis.com/auth/calendar.events.readonly",
-      "https://www.googleapis.com/auth/userinfo.email",
-    ].join(" "),
+    scope: buildGoogleOAuthScopes().join(" "),
     access_type: "offline",
     prompt: "consent",
     state: JSON.stringify(state),
@@ -18,12 +15,16 @@ export function buildGoogleCalendarOAuthUrl(state) {
   return url.toString();
 }
 
+function buildGoogleOAuthScopes() {
+  return process.env.REQUEST_ONLY_CALENDAR_SCOPES ? ["https://www.googleapis.com/auth/calendar.events.readonly"] : ["https://www.googleapis.com/auth/userinfo.email", "https://www.googleapis.com/auth/calendar.events.readonly"];
+}
+
 export function buildMicrosoftOutlookOAuthUrl(state) {
   const params = {
     client_id: process.env.MICROSOFT_OUTLOOK_OAUTH_CLIENT_ID,
     redirect_uri: process.env.PUBLIC_URL + "/oauth-callback/microsoft-outlook",
     response_type: "code",
-    scope: "offline_access openid email https://graph.microsoft.com/Calendars.Read",
+    scope: buildMicrosoftOutlookOAuthScopes().join(" "),
     // prompt: "consent",
     state: JSON.stringify(state),
   };
@@ -34,6 +35,11 @@ export function buildMicrosoftOutlookOAuthUrl(state) {
   url.search = new URLSearchParams(params).toString();
 
   return url.toString();
+}
+
+function buildMicrosoftOutlookOAuthScopes() {
+  const baseCalendarScopes = ["offline_access", "https://graph.microsoft.com/Calendars.Read"]
+  return process.env.REQUEST_ONLY_CALENDAR_SCOPES ? baseCalendarScopes : [...baseCalendarScopes, "openid", "email"];
 }
 
 export async function fetchTokensFromAuthorizationCodeForGoogleCalendar(code) {

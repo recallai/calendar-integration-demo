@@ -1,6 +1,6 @@
 version: '3.1'
 services:
-  app:
+  calv2-demo-app:
     platform: linux/amd64
     build: 
       context: .
@@ -12,11 +12,11 @@ services:
       - .:/app
       - /app/node_modules
     depends_on:
-      - redis
+      - calv2-demo-redis
     environment:
-      - REDIS_URL=redis://redis:6379
+      - REDIS_URL=redis://calv2-demo-redis:6379
   
-  worker:
+  calv2-demo-worker:
     platform: linux/amd64
     build: 
       context: .
@@ -26,11 +26,11 @@ services:
       - .:/app
       - /app/node_modules
     depends_on:
-      - redis
+      - calv2-demo-redis
     environment:
-      - REDIS_URL=redis://redis:6379
+      - REDIS_URL=redis://calv2-demo-redis:6379
     
-  redis:
+  calv2-demo-redis:
     platform: linux/amd64
     image: redis:6.2    
     expose:
